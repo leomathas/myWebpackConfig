@@ -71,7 +71,30 @@ const config = {
 			{
 				test: /\.scss$/,
 				use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
-			}
+			},
+			{
+				test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+				use: {
+					loader: 'file-loader',
+					options: {
+						name: '[name].[ext]',
+						outputPath: '/assets/fonts/'
+					}
+				}
+			},
+			{
+				test: /\.(png|jpe?g|gif)/i,
+				use: [{
+					loader: 'url-loader',
+					options: {
+						name: '/img/[name].[ext]',
+						limit: 200000
+					}
+				},
+				{
+					loader: 'img-loader'
+				}]
+			}	
 		]
 	},
 	plugins: [new HtmlWebpackPlugin({
